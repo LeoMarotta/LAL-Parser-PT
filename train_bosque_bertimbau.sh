@@ -39,7 +39,7 @@ python src_joint/main.py train \
     --epochs 50 \
     --use-bert \
     --bert-model "$BERT_MODEL" \
-    --bert-do-lower-case 0 \
+    --no-bert-do-lower-case \
     --use-tags \
     --const-lada 0.5 \
     --dataset ptb \

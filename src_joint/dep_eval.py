@@ -4,7 +4,7 @@ import re
 import numpy as np
 
 def is_uni_punctuation(word):
-    match = re.match("^[^\w\s]+$]", word, flags=re.UNICODE)
+    match = re.match(r"^[^\w\s]+$", word, flags=re.UNICODE)
     return match is not None
 
 

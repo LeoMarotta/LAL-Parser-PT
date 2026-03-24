@@ -26,13 +26,15 @@ class HParams():
                 continue
             v = self[k]
             k = k.replace('_', '-')
-            if type(v) in (int, float):
-                parser.add_argument(f'--{k}', type=type(v), default=v)
-            elif isinstance(v, bool):
+            if isinstance(v, bool):
                 if not v:
                     parser.add_argument(f'--{k}', action='store_true')
                 else:
                     parser.add_argument(f'--no-{k}', action='store_false')
+            elif type(v) in (int, float):
+                parser.add_argument(f'--{k}', type=type(v), default=v)
+            elif isinstance(v, str):
+                parser.add_argument(f'--{k}', type=str, default=v)
 
     def set_from_args(self, args):
         for k in dir(self):

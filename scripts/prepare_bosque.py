@@ -158,7 +158,8 @@ def convert_to_constituency(sentences, output_path):
                 leaves.append(f"({ptb_pos} {word})")
 
             if leaves:
-                tree = "(TOP (S " + " ".join(leaves) + "))"
+                # Encapsula as folhas em um nó X dentro de S
+                tree = "(TOP (S (X " + " ".join(leaves) + ")))"
                 f.write(tree + '\n')
 
 

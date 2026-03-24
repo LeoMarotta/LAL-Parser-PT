@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+
+# Modelos treinados (muito grandes para git)
+models/*.pt
+best_parser.pt
+*.pt
+
+# Dados PTB originais (proprietários - Penn Treebank, não distribuir)
+data/02-21.10way.clean
+data/22.auto.clean
+data/23.auto.clean
+data/ptb_train_3.3.0.sd.clean
+data/ptb_dev_3.3.0.sd.clean
+data/ptb_test_3.3.0.sd.clean
+data/stanford-parser_3.3.0.jar
+
+# Dados brutos baixados
+data/bosque/raw/
+data/bosque/
+data/glove*
+
+# Outputs
+outputs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# EVALB compilado
+EVALB/evalb
+EVALB/evalb.dSYM/
+
+# Cython build
+src_joint/*.c
+src_joint/*.so
+
+# PDF da monografia (não versionar)
+*.pdf
+
+# Docker
+.dockerignore

@@ -728,13 +728,9 @@ def main():
     hparams.populate_arguments(subparser)
     subparser.add_argument("--numpy-seed", type=int)
     subparser.add_argument("--model-path-base", required=True)
-    subparser.add_argument("--embedding-path", required=True)
-    subparser.add_argument("--embedding-type", default="random")
-
-    subparser.add_argument("--model-name", default="test")
+    # --embedding-path, --embedding-type, --model-name, --dataset
+    # já são registrados por populate_arguments() via hparams
     subparser.add_argument("--evalb-dir", default="EVALB/")
-
-    subparser.add_argument("--dataset", default="ptb")
 
     subparser.add_argument("--train-ptb-path", default="data/02-21.10way.clean")
     subparser.add_argument("--dev-ptb-path", default="data/22.auto.clean")

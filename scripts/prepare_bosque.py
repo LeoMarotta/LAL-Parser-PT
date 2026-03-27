@@ -84,7 +84,10 @@ def parse_conllu(filepath):
                 continue
             parts = line.split('\t')
             if len(parts) != 10:
-                continue
+                if len(parts) > 10:
+                    parts = parts[:9] + [' '.join(parts[9:])]
+                else:
+                    continue
             # Ignorar tokens compostos (ex: "1-2") e tokens nulos (ex: "1.1")
             token_id = parts[0]
             if '-' in token_id or '.' in token_id:
@@ -148,6 +151,8 @@ def convert_to_constituency(sentences, output_path):
     """
     with open(output_path, 'w', encoding='utf-8') as f:
         for sent in sentences:
+            if not sent or not isinstance(sent, list):
+                continue
             # Filtra tokens de pontuação para a árvore de constituência
             leaves = []
             for token in sent:

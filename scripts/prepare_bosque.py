@@ -93,9 +93,13 @@ def parse_conllu(filepath):
             if '-' in token_id or '.' in token_id:
                 continue
 
+            # Remover espaços internos no FORM (ex: "34 470" -> "34_470")
+            # Necessário porque trees.py usa .split() que quebraria tokens com espaço
+            form = parts[1].replace(' ', '_')
+
             token = {
                 'id': int(parts[0]),
-                'form': parts[1],
+                'form': form,
                 'lemma': parts[2],
                 'upos': parts[3],
                 'xpos': parts[4] if parts[4] != '_' else parts[3],

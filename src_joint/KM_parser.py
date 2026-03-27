@@ -1650,9 +1650,16 @@ class ChartParser(nn.Module):
             all_input_mask = from_numpy(np.ascontiguousarray(all_input_mask[:, :subword_max_len]))
             all_word_start_mask = from_numpy(np.ascontiguousarray(all_word_start_mask[:, :subword_max_len]))
             all_word_end_mask = from_numpy(np.ascontiguousarray(all_word_end_mask[:, :subword_max_len]))
-            all_encoder_layers, _ = self.bert(all_input_ids, attention_mask=all_input_mask)
-            del _
-            features = all_encoder_layers[-1]
+            
+            # Compatível com transformers (HuggingFace) e pytorch_pretrained_bert
+            bert_output = self.bert(all_input_ids, attention_mask=all_input_mask)
+            if hasattr(bert_output, 'last_hidden_state'):
+                # transformers >= 4.x retorna BaseModelOutput
+                features = bert_output.last_hidden_state
+            else:
+                # pytorch_pretrained_bert retorna (all_encoder_layers, pooled)
+                all_encoder_layers = bert_output[0]
+                features = all_encoder_layers[-1]
 
             if self.encoder is not None:
                 features_packed = features.masked_select(all_word_end_mask.to(DTYPE).unsqueeze(-1)).reshape(-1,features.shape[-1])
